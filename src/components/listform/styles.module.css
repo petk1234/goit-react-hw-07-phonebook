@@ -1,0 +1,12 @@
+.tasklist{
+    /* background-color: greenyellow; */
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width:650px;
+    padding: 50px 0;
+    border-radius: 10px;
+    /* box-shadow: 0 0 1px rgba(167, 129, 129, 0.5); */
+    outline: 1px solid rgba(167, 129, 129, 0.5);
+}

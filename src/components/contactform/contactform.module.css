@@ -1,0 +1,42 @@
+.divContainer{
+    outline: 1px solid rgba(167, 129, 129, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px 0;
+    width: 660px;
+    flex-direction: column;
+}
+
+.inputName{
+    width: 640px;
+    height: 40px;
+    margin: 1px auto;
+    padding: 1px;
+    margin-bottom: 10px;
+}
+
+.inputNumber{
+    width: 640px;
+    height: 40px;
+    margin: 1px auto;
+    padding: 1px;
+    margin-bottom: 10px;
+}
+
+.pElement{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.buttonElement{
+    width: 640px;
+    height: 50px;
+    background-color: royalblue;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: auto;
+    font-weight: 700;
+}

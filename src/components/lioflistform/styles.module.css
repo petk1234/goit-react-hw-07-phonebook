@@ -1,0 +1,29 @@
+.liItem{
+    list-style: none;
+    outline: 1px solid rgba(167, 129, 129, 0.5);
+    width:500px;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+/* .buttonItem{
+    width: 50px;
+    height: 50px;
+    background: url(gg.png) no-repeat;
+    background-color: red;
+} */
+/* 
+.divItem{
+    background: red;
+    height: 55px;
+} */
+
+.divItemButton{
+    width: 30px;
+    height: 30px;
+    background: url(xxx2.png);
+    background-color: red;
+}

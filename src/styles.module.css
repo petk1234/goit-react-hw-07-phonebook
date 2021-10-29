@@ -1,0 +1,27 @@
+.pItem{
+    color: blue;
+    font-size: 40px;
+}
+
+.divContainer{
+    outline: 1px solid rgba(167, 129, 129, 0.5);
+    width: 660px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.inputFilter{
+    width: 640px;
+    height: 40px;
+    margin: 1px auto;
+}
+
+.pFilter{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    /* margin-left: 10px; */
+}
