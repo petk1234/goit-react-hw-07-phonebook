@@ -12,6 +12,7 @@ export default class App extends Component{
 
   componentDidMount(){
     let localStorageInput = localStorage.getItem('contacts');
+
     
     if(localStorageInput !== null){
       this.setState( prevState => (
