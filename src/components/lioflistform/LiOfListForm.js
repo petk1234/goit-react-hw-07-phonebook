@@ -11,7 +11,7 @@ class LiOfListForm extends Component{
             <span>{arr[0]}</span>
             <span>{arr[1]}</span>
             <div className={styles.divItem}>
-              <button className={styles.divItemButton} onClick={()=>this.props.deleteClickTamTam(this.props.contact)}></button>
+              <button className={styles.divItemButton} onClick={this.props.deleteClickTamTam}></button>
             </div>
           </li>
         </Fragment>
@@ -19,9 +19,9 @@ class LiOfListForm extends Component{
     }
 }
 
-const mapDispatchToProps = dispatch =>{
-  return{
-    deleteClickTamTam: contact => dispatch(tasksActions.deleteClickTyt(contact)),
+const mapDispatchToProps = (dispatch, ownProps) =>(
+  {
+    deleteClickTamTam: () => dispatch(tasksActions.deleteClickTyt(ownProps.contact)),
   }
-}
+)
 export default connect(null, mapDispatchToProps)(LiOfListForm);

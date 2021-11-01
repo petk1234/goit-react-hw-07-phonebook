@@ -8,7 +8,7 @@ class ListForm extends Component{
      
     render(){
         let{filter, contacts} = this.props;
-         
+        //  console.log(filter);
         return(
           <>
             {filter.length === 0 ?(
