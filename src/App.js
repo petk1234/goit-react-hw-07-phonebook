@@ -1,82 +1,50 @@
 import { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import ContactForm from "./components/contactform/ContactForm";
 import ListForm from "./components/listform/ListForm";
+import tasksActions from "./redux/tasks/tasksActions";
 import { CSSTransition } from "react-transition-group";
 import transition from "./transitionNav.module.css";
 import styles from "./styles.module.css";
-export default class App extends Component{
-  state={
-    contacts:[],
-    filter:'',
-  }
+class App extends Component{
+  // state={
+  //   contacts:[],
+  //   filter:'',
+  // }
 
   componentDidMount(){
     let localStorageInput = localStorage.getItem('contacts');
-
-    
-    
+    console.log('start');
     if(localStorageInput !== null){
-      this.setState( prevState => (
-        {contacts: prevState.contacts.concat(JSON.parse(localStorageInput))}
-        )
-      )
+      this.props.getInfoFromLocStor(localStorageInput);
     }
-  }
-  
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.contacts !== this.state.contacts){  
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  handleClick = (name, number) =>{
-    let indexer = 0;
-    this.setState( prevState =>{
-      console.log('is in');
-      prevState.contacts.forEach( contact =>{
-        if(contact === `${name}:${number}`){
-          indexer = -1;
-        }
-      })
-      if(indexer === 0){
-        return {contacts: prevState.contacts.concat(`${name}:${number}`)}
-      }
-      })
-  }
-
-  handleChange = e =>{
-    this.setState(()=>({
-      filter: e.target.value,}
-    ))
-  }
-
-  deleteClickTyt = (key) =>{
-    this.setState(prevState =>({
-      contacts: prevState.contacts.filter(contact => contact!==key),
-    }))
   }
 
   render(){
-    let {contacts, filter} = this.state;
     return (
       <>
         <CSSTransition in={true} appear={true} timeout={500} classNames={transition}>
           <h1 className={styles.pItem}>PhoneBook</h1>
         </CSSTransition>
-        <ContactForm 
-            onClickkk={this.handleClick}
-        />
-        <div className={styles.divContainer}>
-          <p className={styles.pFilter}>Find contact by filter</p>
-          <input className={styles.inputFilter} onChange={this.handleChange}></input>
-        </div>
-        <ListForm 
-          filter={filter}
-          contacts={contacts}
-          deleteClickTam={this.deleteClickTyt}
+        <ContactForm />
+         <div className={styles.divContainer}>
+           <p className={styles.pFilter}>Find contact by filter</p>
+           <input className={styles.inputFilter} onChange={e => this.props.handleChange(e.target.value)}></input>
+         </div>
+        <ListForm
+          // filter={this.props.filter}
+          // contacts={this.props.contacts}
+          // deleteClickTam={this.deleteClickTyt}
         />
       </>
     );
   }
 }
 
+const mapDispatchToProps = dispatch =>{
+ return {
+   getInfoFromLocStor: localStorageInput => dispatch(tasksActions.getFromLocStor(localStorageInput)),
+   handleChange: val => dispatch(tasksActions.changeFilter(val)),
+ }
+}
+export default connect(null, mapDispatchToProps)(App);

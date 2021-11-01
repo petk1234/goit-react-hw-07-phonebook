@@ -1,6 +1,8 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import contactform from "./contactform.module.css";
-export default class ContactForm extends Component{
+import tasksActions from "../../redux/tasks/tasksActions";
+class ContactForm extends Component{
     state={
         name:"",
         number:"",
@@ -21,7 +23,7 @@ export default class ContactForm extends Component{
     handleClickkk = e =>{
         console.log('It is me');
         this.props.onClickkk(this.state.name, this.state.number);
-        // this.props.onClickkk();
+       // this.props.onClickkk();
         this.setState(()=>({
             name: '',
             number: ''
@@ -63,3 +65,10 @@ export default class ContactForm extends Component{
       </div>)
     }
 }
+
+const mapDispatchToProps = dispatch =>{
+ return{ 
+   onClickkk: (name, number) => dispatch(tasksActions.handleClick(name,number)),
+ }
+}
+export default connect(null, mapDispatchToProps )(ContactForm);

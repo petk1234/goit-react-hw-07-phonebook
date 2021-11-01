@@ -2,15 +2,9 @@ import { Component, Fragment } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import transition from "./transition.module.css";
 import styles from "./styles.module.css";
+import { connect } from "react-redux";
 import LiOfListForm from "../lioflistform/LiOfListForm";
-export default class ListForm extends Component{
-    state={
-
-    }
-    
-    // putButton = contact =>{
-    //     this.props.deleteClickTam(contact);
-    // }
+class ListForm extends Component{
      
     render(){
         let{filter, contacts} = this.props;
@@ -21,7 +15,7 @@ export default class ListForm extends Component{
                 <TransitionGroup component='ul' className={styles.tasklist}>
                   {contacts.map( contact =>(
                      <CSSTransition key={contact} timeout={250} classNames={transition}> 
-                       <LiOfListForm contact={contact} deleteClickTamTam={this.props.deleteClickTam}/>
+                       <LiOfListForm contact={contact}/>
                      </CSSTransition>
                   ))}
                 </TransitionGroup>
@@ -30,7 +24,7 @@ export default class ListForm extends Component{
                   {contacts.map( contact =>
                     contact.toLowerCase().indexOf(filter.toLocaleLowerCase()) !== -1 && (
                       <CSSTransition key={contact} timeout={250} classNames={transition}> 
-                        <LiOfListForm contact={contact} deleteClickTamTam={this.props.deleteClickTam}/>
+                        <LiOfListForm contact={contact}/>
                       </CSSTransition>
                     )
                   )}
@@ -40,3 +34,12 @@ export default class ListForm extends Component{
         )
     }
 }
+
+const mapStateToProps = (state, props) =>{
+  return{
+      filter: state.tasks.filter,
+      contacts: state.tasks.items,
+  }
+}
+
+export default connect(mapStateToProps)(ListForm);
