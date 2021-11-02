@@ -26,6 +26,7 @@ class App extends Component{
         <CSSTransition in={true} appear={true} timeout={500} classNames={transition}>
           <h1 className={styles.pItem}>PhoneBook</h1>
         </CSSTransition>
+        
         <ContactForm />
          <div className={styles.divContainer}>
            <p className={styles.pFilter}>Find contact by filter</p>
