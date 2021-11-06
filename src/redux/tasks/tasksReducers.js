@@ -4,75 +4,66 @@ import { createReducer } from '@reduxjs/toolkit';
 //import tasksActionTypes from "./tasksActionTypes";
 const handleClickOutside = (state, action) =>{
          console.log(action.payload.task);
-            if((state.includes(`${action.payload.task.name_}:${action.payload.task.number_}`))===false){  
-                localStorage.setItem('contacts', JSON.stringify(state.concat(`${action.payload.task.name_}:${action.payload.task.number_}`)));
-                return state.concat(`${action.payload.task.name_}:${action.payload.task.number_}`)
+         let state_ = state.map(el => el.nazva);
+            if((state_.includes(`${action.payload.task.name}:${action.payload.task.number}`))===false){  
+                let nazva = `${action.payload.task.name}:${action.payload.task.number}`;
+                let id = action.payload.task.id;
+                return state.concat({nazva: nazva, id: id});
             }
             else{
                 return state;
             }
 }
-const getFromLocStorOutside = (state, action) =>{
-    console.log(action.payload.myLocalStorage);
-    if(action.payload !== undefined){
-        return  state.concat(JSON.parse(action.payload));
-    }
-} 
-const deleteClickTytOutside = (state, action) =>{
-    if(state.length === 1){
-        localStorage.removeItem('contacts');
-    }
-    else{
-        let localStorageInfo = JSON.parse(localStorage.getItem('contacts'));
-        localStorageInfo = localStorageInfo.filter(item => item !== action.payload);
-        localStorage.setItem('contacts', JSON.stringify(localStorageInfo)); 
-    }
-    return state.filter(contact => contact!==action.payload)
+// const deleteClickTytOutside = (state, action) =>{
+//     return state.filter(contact => contact!==action.payload)
+// }
+const getTaskSuccessOutside = (state, action) =>{
+    //console.log(action.payload.isLoading);
+    action.payload.map(element =>{
+        console.log(element);
+        console.log(`${element.name}:${element.number}`);
+        let state_ = state.map(el => el.nazva);
+        if((state_.includes(`${element.name}:${element.number}`))===false){
+          let nazva = `${element.name}:${element.number}`;
+          let id = element.id;
+          return state.push({nazva, id})
+        }
+    })
+}
+const deleteTaskSuccessOutside = (state, action) =>{
+       console.log('delete reducer');
+       return state.filter(contact => contact.id !== action.payload);
+    // console.log(state[0].id);
+    // console.log(action.payload);
+    // state.forEach( contact =>{
+    //    console.log(contact.id)
+    // })
 }
 const itemsTestReducer = createReducer([], {
-    [tasksActions.handleClick.type]: handleClickOutside,
-    [tasksActions.getFromLocStor.type]: getFromLocStorOutside,
-    [tasksActions.deleteClickTyt.type]: deleteClickTytOutside,
+   // [tasksActions.addTaskRequest.type]: (state,action) => action.payload[0].isLoading = false,
+    [tasksActions.addTaskSuccess.type]: handleClickOutside,
+    [tasksActions.getTaskSuccess.type]: getTaskSuccessOutside,
+    //[tasksActions.deleteClickTyt.type]: deleteClickTytOutside,
+    [tasksActions.deleteTaskSuccess.type]: deleteTaskSuccessOutside,
 })
-//const items = (state=[], {type, payload}) =>{
 
-    // switch(type){
-    //     case tasksActionTypes.HANDLE_CLICK:
-    //         console.log('hdd');
-    //         if((state.includes(`${payload.task.name_}:${payload.task.number_}`))===false){  
-    //             localStorage.setItem('contacts', JSON.stringify(state.concat(`${payload.task.name_}:${payload.task.number_}`)));
-    //             return state.concat(`${payload.task.name_}:${payload.task.number_}`)
-    //         }
-    //         else{
-    //             return state;
-    //         }
-    //         break;
-    //     case tasksActionTypes.LOC_STOR:
-    //         if(payload.myLocalStorage !== undefined){
-    //           return  state.concat(JSON.parse(payload.myLocalStorage));
-    //         }
-    //         break;
-    //     case tasksActionTypes.DELETE_CLICK_TYT:
-    //         if(state.length === 1){
-    //             localStorage.removeItem('contacts');
-    //         }
-    //         else{
-    //             let localStorageInfo = JSON.parse(localStorage.getItem('contacts'));
-    //             localStorageInfo = localStorageInfo.filter(item => item !== payload.key_);
-    //             localStorage.setItem('contacts', JSON.stringify(localStorageInfo)); 
-    //         }
-    //         return state.filter(contact => contact!==payload.key_)
-    //     default:
-    //         return state;
-//     }
-// }
-const changeFilterOutside = (task, action) => action.payload;
+const isLoadingReducer = createReducer(false,{
+    [tasksActions.addTaskRequest]: () => true, 
+    [tasksActions.addTaskSuccess]: () => false,
+    [tasksActions.addTaskError]: () => false,
+    [tasksActions.getTaskRequest]: () => true,
+    [tasksActions.getTaskSuccess]: () => false,
+    [tasksActions.getTasksError]: () => false,
+})
+
+const changeFilterOutside = (state, action) => action.payload;
 const filter = createReducer('', {
     [tasksActions.changeFilter.type]: changeFilterOutside,
 })
 
 
 export default combineReducers({
-    items: itemsTestReducer,
+   items: itemsTestReducer,
+   loading: isLoadingReducer,
    filter: filter,
 });

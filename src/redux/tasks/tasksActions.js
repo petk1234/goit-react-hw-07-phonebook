@@ -1,60 +1,52 @@
 //import tasksActionTypes from "./tasksActionTypes";
 import { createAction } from "@reduxjs/toolkit";
-const handleClick = createAction('tasks/add', (name, number)=>{
+
+const addTaskRequest = createAction('tasks/addRequest');
+const addTaskSuccess = createAction('tasks/addSuccess', ({id, name, number, isLoading})=>{
     return{
         payload:{
             task:{
-                name_: name,
-                number_: number,
+                 id,
+                 name,
+                 number,
+                 isLoading,
             }
         }
     }
 });
-const getFromLocStor = createAction('tasks/ls');
-const deleteClickTyt = createAction('tasks/remove');
-const changeFilter = createAction('tasks/filter');
-// const handleClick = (name, number) =>{
-//     return {
-//         type: tasksActionTypes.HANDLE_CLICK,
+const addTaskError = createAction('tasks/addError');
+
+const getTaskRequest = createAction('tasks/getRequest');
+const getTaskSuccess = createAction('tasks/getSuccess');
+const getTasksError = createAction('tasks/getError');
+
+const deleteTaskRequest = createAction('tasks/deleteRequest');
+const deleteTaskSuccess = createAction('tasks/deleteSuccess');
+const deleteTaskError = createAction('tasks/deleteError');
+// const handleClick = createAction('tasks/add', (name, number)=>{
+//     return{
 //         payload:{
 //             task:{
 //                 name_: name,
-//                 number_: number
+//                 number_: number,
 //             }
 //         }
 //     }
-// }
+// });
+const deleteClickTyt = createAction('tasks/remove');
+const changeFilter = createAction('tasks/filter');
 
-// const getFromLocStor = (myLocalStorage) =>{
-//     return {
-//         type: tasksActionTypes.LOC_STOR,
-//         payload:{
-//             myLocalStorage,
-//         }
-//     }
-// }
-// const deleteClickTyt = key =>{
-//     return {
-//         type: tasksActionTypes.DELETE_CLICK_TYT,
-//         payload:{
-//             key_: key,
-//         }
-//     }
-// }
 
-// const changeFilter = val =>{
-//     return {
-//         type: tasksActionTypes.CHANGE_FILTER,
-//         payload:{
-//             filter: val, 
-//         }
-//     }
-// }
-
-export default {
-    handleClick, 
-    getFromLocStor,
+export default { 
+    addTaskRequest,
+    addTaskSuccess,
+    addTaskError,
+    getTaskRequest,
+    getTaskSuccess,
+    getTasksError,
+    deleteTaskRequest,
+    deleteTaskSuccess,
+    deleteTaskError,
     deleteClickTyt,
     changeFilter,
-
 }
