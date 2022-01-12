@@ -66,9 +66,12 @@ class ContactForm extends Component{
     }
 }
 
-const mapDispatchToProps = dispatch =>{
- return{ 
-   onClickkk: (name, number, isLoading) => dispatch(tasksOperations.handleClick(name,number, isLoading)),
- }
+// const mapDispatchToProps = dispatch =>{
+//  return{ 
+//    onClickkk: (name, number, isLoading) => dispatch(tasksOperations.handleClick(name,number, isLoading)),
+//  }
+// }
+const mapDispatchToProps = {
+    onClickkk: tasksOperations.handleClick,
 }
 export default connect(null, mapDispatchToProps )(ContactForm);

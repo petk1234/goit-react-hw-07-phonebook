@@ -6,6 +6,7 @@ import tasksActions from "./redux/tasks/tasksActions";
 import { CSSTransition } from "react-transition-group";
 import transition from "./transitionNav.module.css";
 import styles from "./styles.module.css";
+import tasksSelectors from "./redux/tasks/tasksSelectors";
 import tasksOperations from "./redux/tasks/tasksOperations";
 class App extends Component{
   // state={
@@ -51,7 +52,7 @@ class App extends Component{
 }
 const mapStateToProps = (state) =>{
   return{
-      isLoading: state.tasks.loading,
+      isLoading: tasksSelectors.getLoading(state),
   }
 }
 const mapDispatchToProps = dispatch =>{
